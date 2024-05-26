@@ -1,17 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Provider } from 'react-redux';
 import { getInfo } from './api';
-import { store } from './store/store';
 import { useSelector, useDispatch } from 'react-redux';
+import { setAllData } from './store/dataSlice';
 
 function App() {
   const data = useSelector((state: any) => state.data.all);//переопределить тип
   const dispatch = useDispatch();
-  getInfo().then((data) => console.log(data))
+
+  getInfo().then((data) => dispatch(setAllData(data)))
   return (
-    <Provider store={store}>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -29,7 +28,6 @@ function App() {
           </a>
         </header>
       </div>
-    </Provider>
   );
 }
 
